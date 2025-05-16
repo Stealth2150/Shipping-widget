@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Cost Calculator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Shipping Cost Calculator</h2>
+  
+  <label for="weight">Package Weight (kg):</label>
+  <input type="number" id="weight" min="0" step="0.1">
+
+  <button onclick="calculateShipping()">Calculate</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculateShipping() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const baseRate = 4.40;
+      const extraRate = 0.23;
+      let total = 0;
+
+      if (isNaN(weight) || weight <= 0) {
+        document.getElementById("result").textContent = "Please enter a valid weight.";
+        return;
+      }
+
+      if (weight <= 20) {
+        total = baseRate;
+      } else {
+        const extraWeight = weight - 20;
+        total = baseRate + (extraWeight * extraRate);
+      }
+
+      document.getElementById("result").textContent = `Shipping Cost: £${total.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
